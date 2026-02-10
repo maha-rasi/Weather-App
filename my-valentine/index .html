@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Valentine 💖</title>
+
+<style>
+body {
+  background: linear-gradient(to right, #ff4e50, #f9d423);
+  text-align: center;
+  color: white;
+  font-family: Poppins, sans-serif;
+  padding-top: 80px;
+  overflow: hidden;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 20px;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  color: #ff4e50;
+  cursor: pointer;
+}
+
+h1, p, .kissBox, #playingText {
+  display: none;
+  animation: fadeIn 2s forwards;
+}
+
+#playingText {
+  font-size: 26px;
+  margin-top: 20px;
+}
+
+.kissBox {
+  margin-top: 20px;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heart {
+  position: fixed;
+  color: rgba(255,255,255,0.8);
+  font-size: 20px;
+  animation: floatUp 4s linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<h2 id="tapText">💖 Tap to Play My Love  💖</h2>
+<button id="playBtn">Play Music 🎵</button>
+<p id="playingText">🎶 Playing My love… 💞</p>
+
+<audio id="lovesong" preload="auto">
+  <source src="./song.mp3" type="audio/mp3">
+</audio>
+
+<h1 id="valentineText">💖 I Love You Athan 💖</h1>
+<p id="loveText">💖 Happy Valentine’s Day 💖</p>
+
+<div class="kissBox" id="kissGif">
+  <div class="tenor-gif-embed" data-postid="20628113" data-share-method="host" data-aspect-ratio="1.23552" data-width="100%"></div>
+</div>
+
+<script async src="https://tenor.com/embed.js"></script>
+
+<script>
+const btn = document.getElementById("playBtn");
+const song = document.getElementById("lovesong");
+
+const secondSongSrc = "./lovesong.mp3";
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (16 + Math.random() * 20) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 4000);
+}
+
+btn.addEventListener("click", () => {
+  song.play();
+
+  btn.style.display = "none";
+  document.getElementById("tapText").style.display = "none";
+  document.getElementById("playingText").style.display = "block";
+
+  setInterval(createHeart, 400);
+});
+
+// 🎯 FIRST SONG MUDINJATHUM INTHA LOGIC NADAKKUM
+song.addEventListener("ended", () => {
+  // 1. Message and GIF-ah show panrom
+  document.getElementById("playingText").style.display = "none";
+  document.getElementById("valentineText").style.display = "block";
+  document.getElementById("loveText").style.display = "block";
+  document.getElementById("kissGif").style.display = "block";
+
+  // 2. Audio source-ah "lovesong.mp3"-ku mathurom
+  song.src = secondSongSrc;
+  
+  // 3. Loop-ah enable panrom (so repeat aagitte irukkum)
+  song.loop = true;
+  
+  // 4. Play panrom
+  song.play();
+});
+</script>
+
+</body>
+</html>
